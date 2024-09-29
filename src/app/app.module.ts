@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
 import { EstudianteScreenComponent } from './screens/estudiante-screen/estudiante-screen.component';
 import { PropietarioScreenComponent } from './screens/propietario-screen/propietario-screen.component';
+import { NavbarComponent } from './partials/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PropietarioScreenComponent } from './screens/propietario-screen/propiet
     RegistroScreenComponent,
     HomeScreenComponent,
     EstudianteScreenComponent,
-    PropietarioScreenComponent
+    PropietarioScreenComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
