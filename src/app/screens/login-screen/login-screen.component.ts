@@ -19,7 +19,7 @@ export class LoginScreenComponent implements OnInit {
   ngOnInit(): void {}
 
   public login() {
-    /*this.errors = [];
+    this.errors = [];
 
     this.errors = this.facadeService.validarLogin(this.username, this.password);
     if (!$.isEmptyObject(this.errors)){
@@ -35,8 +35,7 @@ export class LoginScreenComponent implements OnInit {
       (error) => {
         alert("No se pudo iniciar sesión");
       }
-    );*/
-    this.router.navigate(['propietarios']);
+    );
   }
 
   public registrar() {

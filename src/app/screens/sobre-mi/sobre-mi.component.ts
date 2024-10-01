@@ -1,47 +1,148 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'; // Asegúrate de tener el servicio para manejar las peticiones
+import { UsuariosService } from 'src/services/usuarios.service'; // Servicio que usas para manejar las solicitudes del usuario
 
 @Component({
   selector: 'app-sobre-mi',
   templateUrl: './sobre-mi.component.html',
   styleUrls: ['./sobre-mi.component.scss']
 })
-export class SobreMiComponent {
-
-  public user:any={}
-
-  userForm: FormGroup;
-  editMode = {
-    name: false,
-    email: false,
-    username: false,
-    password: false,
-    address: false,
-    phone: false
+export class SobreMiComponent implements OnInit {
+  user = {
+    id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirmar_password: '',
+    telefono: '',
+    rol: '',
   };
 
-  constructor(private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      address: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]]
-    });
+  editMode = {
+    first_name: false,
+    last_name: false,
+    email: false,
+    password: false,
+    telefono: false,
+  };
+
+  showPassword = false;
+  errores: any = {};
+
+  constructor(private usuariosService: UsuariosService) { }
+
+  // Precargar los datos del usuario cuando se cargue el componente
+  ngOnInit() {
+    // Reemplaza '1' con el ID del usuario correcto
+    this.usuariosService.getUsuarioByID(3).subscribe(
+      (data) => {
+        console.log('Datos del usuario:', data); // Verifica si los datos están llegando correctamente
+        console.log('Rol del usuario:', data.rol); // Verifica si el rol está llegando
+        // Precargar los datos del usuario en el formulario
+        this.user.id = data.user.id || '';
+        this.user.first_name = data.user.first_name || ''; // Asegúrate de que los datos están asignados correctamente
+        this.user.last_name = data.user.last_name || '';
+        this.user.email = data.user.email || '';
+        this.user.password = '';  // No quieres mostrar la contraseña real
+        this.user.confirmar_password = '';  // No es seguro precargar la contraseña
+        this.user.telefono = data.telefono || '';
+        this.user.rol = data.rol || '';
+      },
+      (error) => {
+        console.error('Error al cargar los datos del usuario:', error);
+      }
+    );
   }
 
+  // Función para alternar el modo de edición de un campo
   toggleEdit(field: string) {
-    this.editMode[field] = !this.editMode[field];
-    if (!this.editMode[field]) {
-      // Simulación de guardar los datos
-      console.log('Datos actualizados:', this.userForm.value);
+    this.editMode[field] = !this.editMode[field]; // Alterna el modo de edición
+
+    // Si el campo está en modo de edición, habilitar el campo para que sea editable
+    if (this.editMode[field]) {
+      const inputField = document.getElementById(field) as HTMLInputElement;
+      if (inputField) {
+        inputField.readOnly = false;  // Hacer el campo editable
+        inputField.focus(); // Mover el cursor al campo editado
+      }
     }
   }
 
-  onInputChange(event: any, field: string) {
-    this.userForm.patchValue({
-      [field]: event.target.value
-    });
+  // Función para mostrar/ocultar la contraseña
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
+
+  // Función para guardar los cambios del formulario
+  saveChanges() {
+    // Validar antes de enviar los datos
+    if (!this.user.first_name || !this.user.last_name || !this.user.email || !this.user.telefono) {
+      alert('Por favor, complete todos los campos requeridos');
+      return;
+    }
+
+    const erroresValidacion = this.usuariosService.validarUsuario(this.user, true);
+    if (Object.keys(erroresValidacion).length > 0) {
+      this.errores = erroresValidacion;
+      console.log('Errores de validación:', this.errores);
+      return;
+    }
+
+    // Realizar la llamada HTTP para actualizar los datos del usuario
+    this.usuariosService.editarUsuario(this.user).subscribe(
+      response => {
+        console.log('Datos actualizados con éxito', response);
+        alert('Cambios guardados correctamente');
+        this.resetEditMode();  // Salir del modo de edición tras guardar
+      },
+      error => {
+        console.error('Error al guardar los datos', error);
+        alert('Ocurrió un error al guardar los cambios.');
+      }
+    );
+  }
+
+  // Función para restablecer todos los campos a modo de solo lectura
+  resetEditMode() {
+    this.editMode = {
+      first_name: false,
+      last_name: false,
+      email: false,
+      password: false,
+      telefono: false
+    };
+  }
+
+  eliminarCuenta() {
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
+    if (confirmacion) {
+      const idUsuario = this.user.id; // Obtener el ID del usuario
+      console.log('ID del usuario a eliminar:', idUsuario); // Verifica el ID
+
+      if (idUsuario) {
+        // Convertir idUsuario a número
+        const idNumero = Number(idUsuario); // O usar parseInt(idUsuario, 10);
+
+        // Asegurarte de que la conversión es válida
+        if (!isNaN(idNumero)) {
+          this.usuariosService.eliminarUsuario(idNumero).subscribe(
+            (response) => {
+              alert('Cuenta eliminada con éxito');
+              // Opcionalmente, redirigir o realizar otra acción aquí
+            },
+            (error) => {
+              console.error('Error al eliminar la cuenta:', error); // Manejo de error
+              alert('Ocurrió un error al intentar eliminar la cuenta.');
+            }
+          );
+        } else {
+          alert('El ID del usuario no es válido.');
+        }
+      } else {
+        alert('No se pudo obtener el ID del usuario.');
+      }
+    }
+  }
+
+
 }

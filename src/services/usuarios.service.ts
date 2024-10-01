@@ -88,17 +88,17 @@ export class UsuariosService {
   }
 
   // Función para eliminar un usuario (comentada)
-  // public eliminarUsuario(idUser: number): Observable<any> {
-  //   var token = this.facadeService.getSessionToken();
-  //   var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-  //   return this.http.delete<any>(`${environment.url_api}/usuarios-edit/?id=${idUser}`, { headers: headers });
-  // }
+  public eliminarUsuario(idUser: number): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.delete<any>(`${environment.url_api}/usuarios-edit/?id=${idUser}`, { headers: headers });
+  }
 
   // Función para editar usuario (comentada)
-  // public editarUsuario(data: any): Observable<any> {
-  //   var token = this.facadeService.getSessionToken();
-  //   var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-  //   return this.http.put<any>(`${environment.url_api}/usuarios-edit/`, data, { headers: headers });
-  // }
+  public editarUsuario(data: any): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.put<any>(`${environment.url_api}/usuarios-edit/`, data, { headers: headers });
+  }
 
 }
