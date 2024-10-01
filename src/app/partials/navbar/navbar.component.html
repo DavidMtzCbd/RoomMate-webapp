@@ -1,35 +1,35 @@
-<div class="wrapper"></div>
-<nav class="navbar">
-<div class="navbar-content">
-<!-- Logo or Title -->
-<div class="navbar-logo">
-<span class="app-title">RooMate</span>
+<div class="wrapper">
+  <nav class="navbar">
+    <div class="navbar-content">
+      <!-- Logo or Title -->
+      <div class="navbar-logo">
+        <span class="app-title">RooMate</span>
+      </div>
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-button">Precio</button>
+        <button class="filter-button">Universidad</button>
+        <button class="filter-button">Tipo</button>
+        <span class="separator">|</span>
+        <button class="filter-button">Mascotas</button>
+        <button class="filter-button">Wifi</button>
+        <button class="filter-button">Cocina</button>
+        <button class="filter-button">Estacionamiento</button>
+        <button class="filter-button">Lavadora</button>
+        <button class="filter-button">Amueblado</button>
+        <button class="filter-button">Seguridad</button>
+        <button class="filter-button">Dryer</button>
+        <button class="filter-button">Filters</button>
+      </div>
+      <!-- User Menu -->
+      <div class="user-menu">
+        <img src="path-to-user-icon.png" alt="User Icon" class="user-icon" (click)="toggleDropdown()">
+        <div class="dropdown-menu" [class.show]="dropdownOpen">
+          <a (click)="viewProfile()">Ver Perfil</a>
+          <a (click)="editAccount()">Editar Cuenta</a>
+          <a (click)="deleteAccount()">Eliminar Cuenta</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 </div>
-<!-- Filter Buttons -->
-<div class="filter-buttons">
-<button class="filter-button">Precio</button>
-<button class="filter-button">Universidad</button>
-<button class="filter-button">Tipo</button>
-<span class="separator">|</span>
-<button class="filter-button">Mascotas</button>
-<button class="filter-button">Wifi</button>
-<button class="filter-button">Cocina</button>
-<button class="filter-button">Estacionamiento</button>
-<button class="filter-button">Lavadora</button>
-<button class="filter-button">Amueblado</button>
-<button class="filter-button">Seguridad</button>
-<button class="filter-button">Dryer</button>
-<button class="filter-button">Filters</button>
-</div>
-<!-- User Menu -->
-<div class="user-menu">
-<img src="path-to-user-icon.png" alt="User Icon" class="user-icon" (click)="toggleDropdown()">
-<div class="dropdown-menu" [class.show]="dropdownOpen">
-<a (click)="viewProfile()">Ver Perfil</a>
-<a (click)="editAccount()">Editar Cuenta</a>
-<a (click)="deleteAccount()">Eliminar Cuenta</a>
-</div>
-</div>
-</div>
-</nav>
-

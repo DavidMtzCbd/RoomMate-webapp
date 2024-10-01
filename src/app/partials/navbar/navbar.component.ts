@@ -1,29 +1,34 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // Importamos el Router para la navegación
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
   dropdownOpen = false;
+
+  constructor(private router: Router) {}
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  // Método para navegar a la pantalla de Ver Perfil (Sobre Mí)
   viewProfile() {
-    // Lógica para ver el perfil
-    console.log('Ver Perfil');
+    this.router.navigate(['/sobre-mi']);
   }
 
+  // Método para navegar a la pantalla de Editar Cuenta (Sobre Mí también, con opción de edición)
   editAccount() {
-    // Lógica para editar la cuenta
-    console.log('Editar Cuenta');
+    this.router.navigate(['/sobre-mi'], { queryParams: { editMode: true } });
   }
 
+  // Método de ejemplo para eliminar la cuenta
   deleteAccount() {
-    // Lógica para eliminar la cuenta
-    console.log('Eliminar Cuenta');
+    // Lógica de eliminación de cuenta
+    console.log('Cuenta eliminada');
   }
 }
+

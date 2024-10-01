@@ -36,7 +36,7 @@ export class LoginScreenComponent implements OnInit {
         alert("No se pudo iniciar sesión");
       }
     );*/
-    this.router.navigate(['home']);
+    this.router.navigate(['propietarios']);
   }
 
   public registrar() {

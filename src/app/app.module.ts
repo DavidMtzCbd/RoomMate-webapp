@@ -23,6 +23,8 @@ import { HomeScreenComponent } from './screens/home-screen/home-screen.component
 import { EstudianteScreenComponent } from './screens/estudiante-screen/estudiante-screen.component';
 import { PropietarioScreenComponent } from './screens/propietario-screen/propietario-screen.component';
 import { NavbarComponent } from './partials/navbar/navbar.component';
+import { SobreMiComponent } from './screens/sobre-mi/sobre-mi.component';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { NavbarComponent } from './partials/navbar/navbar.component';
     HomeScreenComponent,
     EstudianteScreenComponent,
     PropietarioScreenComponent,
-    NavbarComponent
+    NavbarComponent,
+    SobreMiComponent,
+
   ],
   imports: [
     BrowserModule,
