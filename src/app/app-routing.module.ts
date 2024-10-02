@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'home', component: HomeScreenComponent, pathMatch: 'full' },
   { path: 'propietarios', component: PropietarioScreenComponent, pathMatch: 'full' },
   { path: 'sobre-mi', component: SobreMiComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginScreenComponent, pathMatch: 'full' },
+
 
 
 

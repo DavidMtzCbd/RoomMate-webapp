@@ -7,7 +7,7 @@ import { UsuariosService } from 'src/services/usuarios.service'; // Servicio que
   styleUrls: ['./sobre-mi.component.scss']
 })
 export class SobreMiComponent implements OnInit {
-  user = {
+  usuario = {
     id: '',
     first_name: '',
     last_name: '',
@@ -34,19 +34,19 @@ export class SobreMiComponent implements OnInit {
   // Precargar los datos del usuario cuando se cargue el componente
   ngOnInit() {
     // Reemplaza '1' con el ID del usuario correcto
-    this.usuariosService.getUsuarioByID(3).subscribe(
+    this.usuariosService.getUsuarioByID(1).subscribe(
       (data) => {
         console.log('Datos del usuario:', data); // Verifica si los datos están llegando correctamente
         console.log('Rol del usuario:', data.rol); // Verifica si el rol está llegando
         // Precargar los datos del usuario en el formulario
-        this.user.id = data.user.id || '';
-        this.user.first_name = data.user.first_name || ''; // Asegúrate de que los datos están asignados correctamente
-        this.user.last_name = data.user.last_name || '';
-        this.user.email = data.user.email || '';
-        this.user.password = '';  // No quieres mostrar la contraseña real
-        this.user.confirmar_password = '';  // No es seguro precargar la contraseña
-        this.user.telefono = data.telefono || '';
-        this.user.rol = data.rol || '';
+        this.usuario.id = data.id || '';
+        this.usuario.first_name = data.user.first_name || ''; // Asegúrate de que los datos están asignados correctamente
+        this.usuario.last_name = data.user.last_name || '';
+        this.usuario.email = data.user.email || '';
+        this.usuario.password = '';  // No quieres mostrar la contraseña real
+        this.usuario.confirmar_password = '';  // No es seguro precargar la contraseña
+        this.usuario.telefono = data.telefono || '';
+        this.usuario.rol = data.rol || '';
       },
       (error) => {
         console.error('Error al cargar los datos del usuario:', error);
@@ -76,12 +76,12 @@ export class SobreMiComponent implements OnInit {
   // Función para guardar los cambios del formulario
   saveChanges() {
     // Validar antes de enviar los datos
-    if (!this.user.first_name || !this.user.last_name || !this.user.email || !this.user.telefono) {
+    if (!this.usuario.first_name || !this.usuario.last_name || !this.usuario.email || !this.usuario.telefono) {
       alert('Por favor, complete todos los campos requeridos');
       return;
     }
 
-    const erroresValidacion = this.usuariosService.validarUsuario(this.user, true);
+    const erroresValidacion = this.usuariosService.validarUsuario(this.usuario, true);
     if (Object.keys(erroresValidacion).length > 0) {
       this.errores = erroresValidacion;
       console.log('Errores de validación:', this.errores);
@@ -89,7 +89,7 @@ export class SobreMiComponent implements OnInit {
     }
 
     // Realizar la llamada HTTP para actualizar los datos del usuario
-    this.usuariosService.editarUsuario(this.user).subscribe(
+    this.usuariosService.editarUsuario(this.usuario).subscribe(
       response => {
         console.log('Datos actualizados con éxito', response);
         alert('Cambios guardados correctamente');
@@ -116,13 +116,13 @@ export class SobreMiComponent implements OnInit {
   eliminarCuenta() {
     const confirmacion = confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
     if (confirmacion) {
-      const idUsuario = this.user.id; // Obtener el ID del usuario
+      const idUsuario = this.usuario.id; // Obtener el ID del usuario
       console.log('ID del usuario a eliminar:', idUsuario); // Verifica el ID
 
       if (idUsuario) {
         // Convertir idUsuario a número
         const idNumero = Number(idUsuario); // O usar parseInt(idUsuario, 10);
-
+        console.log('ID convertido a número:', idNumero);
         // Asegurarte de que la conversión es válida
         if (!isNaN(idNumero)) {
           this.usuariosService.eliminarUsuario(idNumero).subscribe(

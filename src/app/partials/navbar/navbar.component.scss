@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  flex-wrap: wrap; /* Para que los botones se ajusten en pantallas pequeñas */
+  flex-wrap: wrap;
 }
 
 .navbar-logo .app-title {
@@ -21,18 +21,17 @@
 .filter-buttons {
   display: flex;
   flex-wrap: wrap; /* Permite que los botones se ajusten a la pantalla */
-  gap: 10px; /* Espacio entre botones */
-  margin-top: 10px; /* Ajuste para separar los filtros de la barra */
+  gap: 10px;
+  margin-top: 10px;
   align-items: center;
 }
 
 .filter-button {
   background-color: white;
   color: #d21c43;
-  border: none;
-  border-radius: 20px;
+  border: none; /* Elimina el borde */
+  border-radius: 20px; /* Bordes redondeados */
   padding: 8px 15px;
-  margin-right: 10px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
@@ -58,34 +57,33 @@
   cursor: pointer;
   background-color: white;
   padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 50px;
-  background-color: #ffffff;
-  color: #333333;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  z-index: 1;
-  width: 180px;
-}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar-logo .app-title {
+    font-size: 22px; /* Ajusta el tamaño del título en pantallas pequeñas */
+  }
 
-.dropdown-menu.show {
-  display: block;
-}
+  .filter-buttons {
+    flex-direction: column;
+    margin-top: 15px;
+  }
 
-.dropdown-menu a {
-  display: block;
-  padding: 12px 20px;
-  text-decoration: none;
-  color: #333;
-  cursor: pointer;
-  font-size: 14px;
-}
+  .filter-button {
+    width: 100%;
+    margin-right: 0;
+  }
 
-.dropdown-menu a:hover {
-  background-color: #f7f7f7;
+  .user-menu {
+    margin-left: 0;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    top: 40px;
+  }
 }

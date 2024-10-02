@@ -30,5 +30,13 @@ export class NavbarComponent {
     // Lógica de eliminación de cuenta
     console.log('Cuenta eliminada');
   }
+
+  goToHome(){
+    this.router.navigate(["home"])
+  }
+
+  goToLogin(){
+    this.router.navigate(['login']);
+  }
 }
 
